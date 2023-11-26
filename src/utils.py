@@ -15,14 +15,10 @@ def parse_cli_args() -> tuple[str]:
     return (args.dataset, args.feature)
 
 
-def validate_file_exists(dataset: str, feature: str) -> bool:
+def validate(dataset: str) -> bool:
     valid = True
     if not os.path.exists(dataset):
         valid = False
         print("Invalid dataset provided")
-
-    if not os.path.exists(feature):
-        valid = False
-        print("Invalid feature provided")
 
     return valid
