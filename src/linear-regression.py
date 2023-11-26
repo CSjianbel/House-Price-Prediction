@@ -31,7 +31,18 @@ class LinearRegression:
         self.intercept = mean_y - (self.coefficients * mean_x)
 
     def _fit_gradient_descent(self, X: np.array, y: np.array, learning_rate: float=0.01, num_iterations: int=1000):
-        pass
+        num_samples = len(X)
+        self.coefficients = np.zeros(X.shape[1])
+        self.intercept = 0
+
+        for _ in range(num_iterations):
+            y_predicted = np.dot(X, self.coefficients) + self.intercept
+
+            dw = (1 / num_samples) * np.dot(X.T, (y_predicted - y))
+            db = (1 / num_samples) * np.sum(y_predicted - y)
+
+            self.coefficients -= learning_rate * dw
+            self.intercept -= learning_rate * db
 
     def predict(self, X: np.array) -> float:
         return np.dot(X, self.coefficients) + self.intercept
